@@ -1,0 +1,19 @@
+{
+    "name": "rhaym/rssphpbrasil",
+    "description": "Library for RSS distribution of news from the main ports of Brazil",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Rhaym\\Rssphpbrasil\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "RHAYMISON  CRISTIAN",
+            "email": "rhaymison@hotmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
