@@ -10,9 +10,28 @@ final class RssService
 {
     use ClearXmlArray;
 
+    /**
+     * r7 endoint rss
+     * @var string
+     */
     private $r7 = 'https://noticias.r7.com:443/economia/feed.xml';
+
+    /**
+     * gazeta do povo endoint rss
+     * @var string
+     */
     private $gazetaDoPovo = 'https://www.gazetadopovo.com.br:443/feed/rss/economia.xml';
+
+
+    /**
+     * the Guzzle client
+     */
     private $client;
+
+    /**
+     * the xml helper class to conver xml in php 
+     * array struct client
+     */
     private $xmlHelper;
 
     public function __construct()
@@ -21,16 +40,27 @@ final class RssService
         $this->xmlHelper = new XmlHelper();
     }
 
-    public function GET($endpoint)
+    /**
+     * this function take a GET by guzzle in end point
+     * to get XML. Reice a string endpoint to call
+     * @param string 
+     */
+    public function GET(string $endpoint)
     {
-        $response = $this->client->request('GET', $this->r7);
+        $response = $this->client->request('GET', $endpoint);
         return $response->getBody();
     }
 
-
-    public function getFinancialRss()
+    /**
+     * this method get a financial brazilian rss
+     * @return array
+     */
+    public function getFinancialRss(): array
     {
-        $r7 = $this->xmlHelper->decodeXml($this->GET($this->r7));  
-        $gazetaDoPovo = $this->xmlHelper->decodeXml($this->GET($this->gazetaDoPovo));  
+        $r7 = $this->xmlHelper->decodeXml($this->GET($this->r7));
+        $r7 = $this->financialArrayR7($r7);
+        $gazetaDoPovo = $this->xmlHelper->decodeXml($this->GET($this->gazetaDoPovo));
+        $gazetaDoPovo = $this->financialArrayGazetaDoPovo($gazetaDoPovo);
+        return [$gazetaDoPovo, $r7];
     }
 }
