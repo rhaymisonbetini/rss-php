@@ -11,17 +11,28 @@ final class RssService
     use ClearXmlArray;
 
     /**
-     * r7 endoint rss
+     * r7 endoint rssprovider
      * @var string
      */
     private $r7 = 'https://noticias.r7.com:443/economia/feed.xml';
 
     /**
-     * gazeta do povo endoint rss
+     * gazeta do povo endoint rss provider
      * @var string
      */
     private $gazetaDoPovo = 'https://www.gazetadopovo.com.br:443/feed/rss/economia.xml';
 
+    /**
+     * gazeta do povo entretain rss provider
+     * @var string
+     */
+    private $gazetaDopovoEntratain = 'https://www.gazetadopovo.com.br:443/feed/rss/cultura.xml';
+
+    /**
+     * glogo entretain rss provider
+     * @var string
+     */
+    private $globoEntretain = 'http://gshow.globo.com:80/rss/gshow';
 
     /**
      * the Guzzle client
@@ -62,5 +73,16 @@ final class RssService
         $gazetaDoPovo = $this->xmlHelper->decodeXml($this->GET($this->gazetaDoPovo));
         $gazetaDoPovo = $this->financialArrayGazetaDoPovo($gazetaDoPovo);
         return [$gazetaDoPovo, $r7];
+    }
+
+    /**
+     * this method get a entretain brazilian rss
+     * @return array
+     */
+    public function getEntretainRss(): array
+    {
+        $globo = $this->xmlHelper->decodeXml($this->GET($this->globoEntretain));
+        $globo = $this->globoEntretainClear($globo);
+        return [$globo];
     }
 }

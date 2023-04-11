@@ -27,7 +27,8 @@ class RssBrasil
      */
     function getRss(): array
     {
-        $teste = $this->rssService->getFinancialRss();
-        return $teste;
+        // $financial = $this->rssService->getFinancialRss();
+        $entretain = $this->rssService->getEntretainRss();
+        return $entretain;
     }
-}
+}   
