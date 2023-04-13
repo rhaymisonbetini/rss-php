@@ -72,6 +72,23 @@ trait ClearXmlArray
         return $newArray;
     }
 
+    public function gazetaDoPovoEntretain(array $gazetaEntretain):array
+    {
+        
+        (array) $newArray = [];
+        if (isset($gazetaEntretain['channel']) && count($gazetaEntretain['channel']['item']) > 0) {
+            foreach ($gazetaEntretain['channel']['item'] as $new) {
+                array_push($newArray, [
+                    'url' => $new['link'],
+                    'title' => $new['title'],
+                    'description' => $this->clearDescriptionGazeta($new['description']),
+                    'image' => $new['image']['url'],
+                ]);
+            }
+        }
+        return $newArray;
+    }
+
     /**
      * This methodo clean a img description of globo, cause (i dont know) they 
      * return a img tag inside a description tag..????????
@@ -88,5 +105,11 @@ trait ClearXmlArray
             $img,
             $descrption
         ];
+    }
+
+    public function clearDescriptionGazeta($descrption)
+    {
+        $descrption = explode("<br />", $descrption);
+        return $descrption[1] ?? '';
     }
 }

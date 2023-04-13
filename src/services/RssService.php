@@ -83,6 +83,9 @@ final class RssService
     {
         $globo = $this->xmlHelper->decodeXml($this->GET($this->globoEntretain));
         $globo = $this->globoEntretainClear($globo);
-        return [$globo];
+        $gazetaPovoEntretain = $this->xmlHelper->decodeXml($this->GET($this->gazetaDopovoEntratain));
+        $gazetaPovoEntretain = $this->gazetaDoPovoEntretain($gazetaPovoEntretain);
+        return [$globo, $gazetaPovoEntretain];
     }
+
 }
