@@ -28,7 +28,11 @@ class RssBrasil
     function getRss(): array
     {
         // $financial = $this->rssService->getFinancialRss();
-        $entretain = $this->rssService->getEntretainRss();
-        return $entretain;
+        // $entretain = $this->rssService->getEntretainRss();
+        $getSportsRss = $this->rssService->getPolitcRss();
+        // print_r($getSportsRss);
+        // print_r($entretain);
+        // return $entretain;
+        return [];
     }
 }   

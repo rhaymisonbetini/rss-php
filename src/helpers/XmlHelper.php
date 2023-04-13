@@ -2,6 +2,8 @@
 
 namespace Rhaym\Rssphpbrasil\Helpers;
 
+use SimpleXMLElement;
+
 final class XmlHelper
 {
     public function decodeXml($xml)

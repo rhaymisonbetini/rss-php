@@ -52,7 +52,7 @@ trait ClearXmlArray
     /**
      * this method get xml brute globo  and get the main 
      * parts to send to destinantion
-     * @param array $financialArray
+     * @param array $globoEntretain
      * @return array
      */
     public function globoEntretainClear(array $globoEntretain): array
@@ -61,6 +61,73 @@ trait ClearXmlArray
         if (isset($globoEntretain['channel']) && count($globoEntretain['channel']['item']) > 0) {
             foreach ($globoEntretain['channel']['item'] as $new) {
                 $imgDesc = $this->getImgInsideString($new['description']);
+                array_push($newArray, [
+                    'url' => $new['link'],
+                    'title' => $new['title'],
+                    'description' => $imgDesc[1],
+                    'image' => $imgDesc[0],
+                ]);
+            }
+        }
+        return $newArray;
+    }
+
+    /**
+     * this method get xml brute gazeta do povo  and get the main 
+     * parts to send to destinantion
+     * @param array $gazetaEntretain
+     * @return array
+     */
+    public function gazetaDoPovoEntretain(array $gazetaEntretain): array
+    {
+
+        (array) $newArray = [];
+        if (isset($gazetaEntretain['channel']) && count($gazetaEntretain['channel']['item']) > 0) {
+            foreach ($gazetaEntretain['channel']['item'] as $new) {
+                array_push($newArray, [
+                    'url' => $new['link'],
+                    'title' => $new['title'],
+                    'description' => $this->clearDescriptionGazeta($new['description']),
+                    'image' => $new['image']['url'],
+                ]);
+            }
+        }
+        return $newArray;
+    }
+
+    /**
+     * this method get xml brute el pais and get the main 
+     * parts to send to destinantion
+     * @param array $politc
+     * @return array
+     */
+    public function elPaisPolitcClear(array $politc): array
+    {
+        (array) $newArray = [];
+        if (isset($politc['channel']) && count($politc['channel']['item']) > 0) {
+            foreach ($politc['channel']['item'] as $new) {
+                array_push($newArray, [
+                    'url' => $new['link'],
+                    'title' => $new['title'],
+                    'description' => $new['description'],
+                    'image' => '',
+                ]);
+            }
+        }
+        return $newArray;
+    }
+
+    public function g1Politiclear(array $politc): array
+    {
+        (array) $newArray = [];
+        if (isset($politc['channel']) && count($politc['channel']['item']) > 0) {
+            foreach ($politc['channel']['item'] as $new) {
+                if (strpos($new['description'], 'src=')) {
+                    $imgDesc = $this->getImgInsideString($new['description']);
+                } else {
+                    $imgDesc[0] = null;
+                    $imgDesc[1] =  $new['description'];
+                }
                 array_push($newArray, [
                     'url' => $new['link'],
                     'title' => $new['title'],
@@ -88,5 +155,11 @@ trait ClearXmlArray
             $img,
             $descrption
         ];
+    }
+
+    public function clearDescriptionGazeta($descrption)
+    {
+        $descrption = explode("<br />", $descrption);
+        return $descrption[1] ?? '';
     }
 }

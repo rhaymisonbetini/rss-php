@@ -11,29 +11,17 @@ final class RssService
     use ClearXmlArray;
 
     /**
-     * r7 endoint rssprovider
-     * @var string
+     * array or rss url in Brasil
+     * @var Array
      */
-    private $r7 = 'https://noticias.r7.com:443/economia/feed.xml';
-
-    /**
-     * gazeta do povo endoint rss provider
-     * @var string
-     */
-    private $gazetaDoPovo = 'https://www.gazetadopovo.com.br:443/feed/rss/economia.xml';
-
-    /**
-     * gazeta do povo entretain rss provider
-     * @var string
-     */
-    private $gazetaDopovoEntratain = 'https://www.gazetadopovo.com.br:443/feed/rss/cultura.xml';
-
-    /**
-     * glogo entretain rss provider
-     * @var string
-     */
-    private $globoEntretain = 'http://gshow.globo.com:80/rss/gshow';
-
+    private $urlBrasil = [
+        'r7' => 'https://noticias.r7.com:443/economia/feed.xml',
+        'gazetaDoPovo ' => 'https://www.gazetadopovo.com.br:443/feed/rss/economia.xml',
+        'gazetaDopovoEntratain' => 'https://www.gazetadopovo.com.br:443/feed/rss/cultura.xml',
+        'globoEntretain' => 'http://gshow.globo.com:80/rss/gshow',
+        'g1' => 'https://g1.globo.com:443/rss/g1/politica',
+        'elpais' => 'https://feeds.elpais.com:443/mrss-s/pages/ep/site/brasil.elpais.com/portada'
+    ];
     /**
      * the Guzzle client
      */
@@ -68,9 +56,9 @@ final class RssService
      */
     public function getFinancialRss(): array
     {
-        $r7 = $this->xmlHelper->decodeXml($this->GET($this->r7));
+        $r7 = $this->xmlHelper->decodeXml($this->GET($this->urlBrasil['r7']));
         $r7 = $this->financialArrayR7($r7);
-        $gazetaDoPovo = $this->xmlHelper->decodeXml($this->GET($this->gazetaDoPovo));
+        $gazetaDoPovo = $this->xmlHelper->decodeXml($this->GET($this->urlBrasil['gazetaDoPovo']));
         $gazetaDoPovo = $this->financialArrayGazetaDoPovo($gazetaDoPovo);
         return [$gazetaDoPovo, $r7];
     }
@@ -81,8 +69,23 @@ final class RssService
      */
     public function getEntretainRss(): array
     {
-        $globo = $this->xmlHelper->decodeXml($this->GET($this->globoEntretain));
+        $globo = $this->xmlHelper->decodeXml($this->GET($this->urlBrasil['globoEntretain']));
         $globo = $this->globoEntretainClear($globo);
-        return [$globo];
+        $gazetaPovoEntretain = $this->xmlHelper->decodeXml($this->GET($this->urlBrasil['gazetaDopovoEntratain']));
+        $gazetaPovoEntretain = $this->gazetaDoPovoEntretain($gazetaPovoEntretain);
+        return [$globo, $gazetaPovoEntretain];
+    }
+
+    /**
+     * this method get a entretain brazilian rss
+     * @return array
+     */
+    public function getPolitcRss(): array
+    {
+        $elpais = $this->xmlHelper->decodeXml($this->GET($this->urlBrasil['elpais']));
+        $elpais = $this->elPaisPolitcClear($elpais);
+        $g1 = $this->xmlHelper->decodeXml($this->GET($this->urlBrasil['g1']));
+        $g1 = $this->g1Politiclear($g1);
+        return [$g1, $elpais];
     }
 }
