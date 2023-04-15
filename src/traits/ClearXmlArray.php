@@ -5,27 +5,28 @@ namespace Rhaym\Rssphpbrasil\Traits;
 trait ClearXmlArray
 {
 
-    /**
-     * this method get xml brute gazeta and get the main 
+      /**
+     * this method get xml brute gazeta do povo  and get the main 
      * parts to send to destinantion
-     * @param array $financialArray
+     * @param array $gazetaEntretain
      * @return array
      */
-    function financialArrayGazetaDoPovo(array $financialArray): array
+    public function gazetaDoPovoGeneral(array $gazetaEntretain): array
     {
+
         (array) $newArray = [];
-        if (isset($financialArray['channel']) && count($financialArray['channel']['item']) > 0) {
-            foreach ($financialArray['channel']['item'] as $new) {
+        if (isset($gazetaEntretain['channel']) && count($gazetaEntretain['channel']['item']) > 0) {
+            foreach ($gazetaEntretain['channel']['item'] as $new) {
                 array_push($newArray, [
                     'url' => $new['link'],
                     'title' => $new['title'],
-                    'description' => $new['description'],
-                    'image' => $new['image'],
+                    'description' => $this->clearDescriptionGazeta($new['description']),
+                    'image' => $new['image']['url'],
                 ]);
             }
         }
         return $newArray;
-    }
+    } 
 
     /**
      * this method get xml brute r7 and get the main 
@@ -72,28 +73,6 @@ trait ClearXmlArray
         return $newArray;
     }
 
-    /**
-     * this method get xml brute gazeta do povo  and get the main 
-     * parts to send to destinantion
-     * @param array $gazetaEntretain
-     * @return array
-     */
-    public function gazetaDoPovoEntretain(array $gazetaEntretain): array
-    {
-
-        (array) $newArray = [];
-        if (isset($gazetaEntretain['channel']) && count($gazetaEntretain['channel']['item']) > 0) {
-            foreach ($gazetaEntretain['channel']['item'] as $new) {
-                array_push($newArray, [
-                    'url' => $new['link'],
-                    'title' => $new['title'],
-                    'description' => $this->clearDescriptionGazeta($new['description']),
-                    'image' => $new['image']['url'],
-                ]);
-            }
-        }
-        return $newArray;
-    }
 
     /**
      * this method get xml brute el pais and get the main 
