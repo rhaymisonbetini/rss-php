@@ -21,7 +21,8 @@ final class RssService
         'globoEntretain' => 'http://gshow.globo.com:80/rss/gshow',
         'g1' => 'https://g1.globo.com:443/rss/g1/politica',
         'elpais' => 'https://feeds.elpais.com:443/mrss-s/pages/ep/site/brasil.elpais.com/portada',
-        'sportsBrasil' => 'https://www.gazetadopovo.com.br:443/feed/rss/esportes.xml'
+        'sportsBrasil' => 'https://www.gazetadopovo.com.br:443/feed/rss/esportes.xml',
+        'tecBrasil' => 'https://rss.tecmundo.com.br:443/feed'
     ];
     /**
      * the Guzzle client
@@ -100,5 +101,16 @@ final class RssService
         $sportsBrasil = $this->xmlHelper->decodeXml($this->GET($this->urlBrasil['sportsBrasil']));
         $sportsBrasil = $this->gazetaDoPovoGeneral($sportsBrasil);
         return [$sportsBrasil];
+    }
+
+    /**
+     * this method get a sport brazilian rss
+     * @return array
+     */
+    public function getTecRss(): array
+    {
+        $tecBrasil = $this->xmlHelper->decodeXml($this->GET($this->urlBrasil['tecBrasil']));
+        $tecBrasil = $this->tecmundoClear($tecBrasil);
+        return [$tecBrasil];
     }
 }
