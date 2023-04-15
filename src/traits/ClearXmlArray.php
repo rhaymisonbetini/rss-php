@@ -34,7 +34,7 @@ trait ClearXmlArray
      * @param array $financialArray
      * @return array
      */
-    function financialArrayR7(array $financialArray): array
+    function r7GeneralClear(array $financialArray): array
     {
         (array) $newArray = [];
         if (isset($financialArray['entry']) && count($financialArray['entry']) > 0) {
@@ -103,7 +103,7 @@ trait ClearXmlArray
      * @param array $politc
      * @return array
      */
-    public function g1Politiclear(array $politc): array
+    public function g1Generalclear(array $politc): array
     {
         (array) $newArray = [];
         if (isset($politc['channel']) && count($politc['channel']['item']) > 0) {
@@ -143,7 +143,7 @@ trait ClearXmlArray
                     'description' => strip_tags($new['description']),
                     'image' => $new['enclosure']['@attributes']['url'] ?? '',
                 ]);
-                
+
             }
         }
         return $newArray;
