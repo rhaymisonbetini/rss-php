@@ -96,6 +96,13 @@ trait ClearXmlArray
         return $newArray;
     }
 
+    
+    /**
+     * this method get xml brute g1 and get the main 
+     * parts to send to destinantion
+     * @param array $politc
+     * @return array
+     */
     public function g1Politiclear(array $politc): array
     {
         (array) $newArray = [];
@@ -113,6 +120,30 @@ trait ClearXmlArray
                     'description' => $imgDesc[1],
                     'image' => $imgDesc[0],
                 ]);
+            }
+        }
+        return $newArray;
+    }
+
+    
+    /**
+     * this method get xml brute tecmundo and get the main 
+     * parts to send to destinantion
+     * @param array $tec
+     * @return array
+     */
+    public function tecmundoClear(array $tecBrasil): array
+    {
+        (array) $newArray = [];
+        if (isset($tecBrasil['channel']) && count($tecBrasil['channel']['item']) > 0) {
+            foreach ($tecBrasil['channel']['item'] as $new) {
+                array_push($newArray, [
+                    'url' => $new['link'],
+                    'title' => $new['title'],
+                    'description' => strip_tags($new['description']),
+                    'image' => $new['enclosure']['@attributes']['url'] ?? '',
+                ]);
+                
             }
         }
         return $newArray;
