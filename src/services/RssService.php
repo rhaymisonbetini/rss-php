@@ -16,11 +16,12 @@ final class RssService
      */
     private $urlBrasil = [
         'r7' => 'https://noticias.r7.com:443/economia/feed.xml',
-        'gazetaDoPovo ' => 'https://www.gazetadopovo.com.br:443/feed/rss/economia.xml',
+        'gazetaDoPovo' => 'https://www.gazetadopovo.com.br:443/feed/rss/economia.xml',
         'gazetaDopovoEntratain' => 'https://www.gazetadopovo.com.br:443/feed/rss/cultura.xml',
         'globoEntretain' => 'http://gshow.globo.com:80/rss/gshow',
         'g1' => 'https://g1.globo.com:443/rss/g1/politica',
-        'elpais' => 'https://feeds.elpais.com:443/mrss-s/pages/ep/site/brasil.elpais.com/portada'
+        'elpais' => 'https://feeds.elpais.com:443/mrss-s/pages/ep/site/brasil.elpais.com/portada',
+        'sportsBrasil' => 'https://www.gazetadopovo.com.br:443/feed/rss/esportes.xml'
     ];
     /**
      * the Guzzle client
@@ -59,7 +60,7 @@ final class RssService
         $r7 = $this->xmlHelper->decodeXml($this->GET($this->urlBrasil['r7']));
         $r7 = $this->financialArrayR7($r7);
         $gazetaDoPovo = $this->xmlHelper->decodeXml($this->GET($this->urlBrasil['gazetaDoPovo']));
-        $gazetaDoPovo = $this->financialArrayGazetaDoPovo($gazetaDoPovo);
+        $gazetaDoPovo = $this->gazetaDoPovoGeneral($gazetaDoPovo);
         return [$gazetaDoPovo, $r7];
     }
 
@@ -72,12 +73,12 @@ final class RssService
         $globo = $this->xmlHelper->decodeXml($this->GET($this->urlBrasil['globoEntretain']));
         $globo = $this->globoEntretainClear($globo);
         $gazetaPovoEntretain = $this->xmlHelper->decodeXml($this->GET($this->urlBrasil['gazetaDopovoEntratain']));
-        $gazetaPovoEntretain = $this->gazetaDoPovoEntretain($gazetaPovoEntretain);
+        $gazetaPovoEntretain = $this->gazetaDoPovoGeneral($gazetaPovoEntretain);
         return [$globo, $gazetaPovoEntretain];
     }
 
     /**
-     * this method get a entretain brazilian rss
+     * this method get a politics brazilian rss
      * @return array
      */
     public function getPolitcRss(): array
@@ -87,5 +88,17 @@ final class RssService
         $g1 = $this->xmlHelper->decodeXml($this->GET($this->urlBrasil['g1']));
         $g1 = $this->g1Politiclear($g1);
         return [$g1, $elpais];
+    }
+
+
+    /**
+     * this method get a sport brazilian rss
+     * @return array
+     */
+    public function getSportsRss(): array
+    {
+        $sportsBrasil = $this->xmlHelper->decodeXml($this->GET($this->urlBrasil['sportsBrasil']));
+        $sportsBrasil = $this->gazetaDoPovoGeneral($sportsBrasil);
+        return [$sportsBrasil];
     }
 }

@@ -29,7 +29,7 @@ class RssBrasil
     {
         // $financial = $this->rssService->getFinancialRss();
         // $entretain = $this->rssService->getEntretainRss();
-        $getSportsRss = $this->rssService->getPolitcRss();
+        // $getSportsRss = $this->rssService->getSportsRss();
         // print_r($getSportsRss);
         // print_r($entretain);
         // return $entretain;
