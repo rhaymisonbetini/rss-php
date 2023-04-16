@@ -5,10 +5,13 @@ namespace Rhaym\Rssphpbrasil\Services;
 use GuzzleHttp\Client;
 use Rhaym\Rssphpbrasil\Helpers\XmlHelper;
 use Rhaym\Rssphpbrasil\Traits\ClearXmlArray;
+use Rhaym\Rssphpbrasil\Traits\GuzzleTrait;
 
 final class RssService
 {
     use ClearXmlArray;
+    use GuzzleTrait;
+
 
     /**
      * array or rss url in Brasil
@@ -28,34 +31,7 @@ final class RssService
         'generalG1' => 'https://g1.globo.com:443/rss/g1/',
         'generalR7' => 'https://noticias.r7.com:443/feed.xml'
     ];
-    /**
-     * the Guzzle client
-     */
-    private $client;
-
-    /**
-     * the xml helper class to conver xml in php 
-     * array struct client
-     */
-    private $xmlHelper;
-
-    public function __construct()
-    {
-        $this->client = new Client();
-        $this->xmlHelper = new XmlHelper();
-    }
-
-    /**
-     * this function take a GET by guzzle in end point
-     * to get XML. Reice a string endpoint to call
-     * @param string 
-     */
-    public function GET(string $endpoint)
-    {
-        $response = $this->client->request('GET', $endpoint);
-        return $response->getBody();
-    }
-
+    
     /**
      * this method get a financial brazilian rss
      * @return array
