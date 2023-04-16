@@ -5,7 +5,7 @@ namespace Rhaym\Rssphpbrasil\Traits;
 trait ClearXmlArray
 {
 
-      /**
+    /**
      * this method get xml brute gazeta do povo  and get the main 
      * parts to send to destinantion
      * @param array $gazetaEntretain
