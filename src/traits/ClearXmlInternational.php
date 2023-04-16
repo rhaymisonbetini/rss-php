@@ -26,4 +26,21 @@ trait ClearXmlInternational
         }
         return $newArray;
     }
+
+
+    public function europeNews(array $europe)
+    {
+        (array) $newArray = [];
+        if (isset($europe['channel']) && count($europe['channel']['item']) > 0) {
+            foreach ($europe['channel']['item'] as $key => $value) {
+                array_push($newArray, [
+                    'url' => $value['link'],
+                    'title' => $value['title'],
+                    'description' => $value['description'],
+                    'image' => $value['enclosure']['@attributes']['url'] ?? null,
+                ]);
+            }
+        }
+        return $newArray;
+    }
 }
