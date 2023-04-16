@@ -64,8 +64,8 @@ final class RssService
      */
     public function getPolitcRss(): array
     {
-        $elpais = $this->xmlHelper->decodeXml($this->GET($this->urlBrasil['elpais']));
-        $elpais = $this->elPaisPolitcClear($elpais);
+        $elpais = $this->xmlHelper->decodeXmlWithMediacontent($this->GET($this->urlBrasil['elpais']));
+        $elpais = $this->elPaisPolitcClear($elpais[0], $elpais[1]);
         $g1 = $this->xmlHelper->decodeXml($this->GET($this->urlBrasil['g1']));
         $g1 = $this->g1Generalclear($g1);
         return [$g1, $elpais];
