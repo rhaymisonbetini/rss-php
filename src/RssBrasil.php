@@ -2,6 +2,7 @@
 
 namespace Rhaym\Rssphpbrasil;
 
+use Rhaym\Rssphpbrasil\Services\RssInternationalService;
 use Rhaym\Rssphpbrasil\Services\RssService;
 
 class RssBrasil
@@ -12,6 +13,13 @@ class RssBrasil
      */
     private $rssService;
 
+
+    /**
+     * Instance of rssInternationalService for 
+     * get And acess any manys endpoints of international news
+     */
+    private $rssInternationalService;
+
     /**
      * this constructor create a instance o rssService to 
      * call Guzzle and realize all gets int rss endpoints
@@ -19,6 +27,7 @@ class RssBrasil
     public function __construct()
     {
         $this->rssService = new RssService();
+        $this->rssInternationalService = new RssInternationalService();
     }
 
     /**
@@ -29,7 +38,7 @@ class RssBrasil
     {
         // $financial = $this->rssService->getFinancialRss();
         // $entretain = $this->rssService->getEntretainRss();
-        // $getWorldRss = $this->rssService->getGeneralRss();
+        $getWorldRss = $this->rssInternationalService->unitedStates();
         // print_r($getWorldRss[0]);
         // print_r($getSportsRss);
         // print_r($entretain);
