@@ -15,7 +15,8 @@ class RssInternationalService
      * @var Array
      */
     private $urlIrnational = [
-       'us' => 'https://rss.nytimes.com/services/xml/rss/nyt/US.xml'
+       'us' => 'https://rss.nytimes.com/services/xml/rss/nyt/US.xml',
+       'europe' => 'https://news.un.org/feed/subscribe/en/news/region/europe/feed/rss.xml'
     ];
 
     public function unitedStates()
@@ -26,6 +27,8 @@ class RssInternationalService
 
     public function europe()
     {
-
+        $europe = $this->xmlHelper->decodeXml($this->GET($this->urlIrnational['europe']));
+        $europe = $this->europeNews($europe);
+        print_r($europe);
     }
 }
