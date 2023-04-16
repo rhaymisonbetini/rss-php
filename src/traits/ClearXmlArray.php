@@ -80,16 +80,16 @@ trait ClearXmlArray
      * @param array $politc
      * @return array
      */
-    public function elPaisPolitcClear(array $politc): array
+    public function elPaisPolitcClear(array $politc, array $image): array
     {
         (array) $newArray = [];
         if (isset($politc['channel']) && count($politc['channel']['item']) > 0) {
-            foreach ($politc['channel']['item'] as $new) {
+            foreach ($politc['channel']['item'] as $key => $new) {
                 array_push($newArray, [
                     'url' => $new['link'],
                     'title' => $new['title'],
                     'description' => $new['description'],
-                    'image' => '',
+                    'image' => $image[$key],
                 ]);
             }
         }

@@ -20,10 +20,14 @@ final class XmlHelper
         $mediasContent = [];
         foreach ($xml->channel->item as $item) {
             $content = $item->children('media', true)->content;
-            $contentattr = $content->attributes();
-            $contentattr = json_encode($contentattr);
-            $contentattr = json_decode($contentattr, TRUE);
-            $mediasContent[] = $contentattr['@attributes']['url'];
+            if (isset($content) && $content) {
+                $contentattr = $content->attributes();
+                $contentattr = json_encode($contentattr);
+                $contentattr = json_decode($contentattr, TRUE);
+                $mediasContent[] = $contentattr['@attributes']['url'];
+            } else {
+                $mediasContent[] = null;
+            }
         }
         $json = json_encode($xml);
         $array = json_decode($json, TRUE);

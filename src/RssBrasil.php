@@ -37,11 +37,11 @@ class RssBrasil
     function getRss(): array
     {
         // $financial = $this->rssService->getFinancialRss();
-        $entretain = $this->rssService->getEntretainRss();
+        // $entretain = $this->rssService->getPolitcRss();
         // $getWorldRss = $this->rssInternationalService->unitedStates();
         // print_r($getWorldRss[0]);
         // print_r($getSportsRss);
-        print_r($entretain);
+        // print_r($entretain[1]);
         // return $entretain;
         return [];
     }
