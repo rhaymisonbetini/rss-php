@@ -1,6 +1,12 @@
 {
     "name": "rhaym/rssphpbrasil",
     "description": "Library for RSS news",
+    "keywords": [
+        "rss",
+        "news",
+        "Brasil",
+        "rss-generator"
+    ],
     "type": "library",
     "license": "MIT",
     "autoload": {
@@ -14,8 +20,12 @@
             "email": "rhaymison@hotmail.com"
         }
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
+    "config": {
+        "sort-packages": true
+    },
     "require": {
+        "php": ">= 7.4.16",
         "guzzlehttp/guzzle": "7.0"
     }
 }
