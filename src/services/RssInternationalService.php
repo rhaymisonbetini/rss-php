@@ -23,12 +23,13 @@ class RssInternationalService
     {
         $us = $this->xmlHelper->decodeXmlWithMediacontent($this->GET($this->urlIrnational['us']));
         $us = $this->euaNews($us[0], $us[1]);
+        return $us;
     }
 
     public function europe()
     {
         $europe = $this->xmlHelper->decodeXml($this->GET($this->urlIrnational['europe']));
         $europe = $this->europeNews($europe);
-        print_r($europe);
+        return $europe;
     }
 }
