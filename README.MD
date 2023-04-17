@@ -27,7 +27,7 @@ Library for consumption of various RSS for Brazilian news sites
 
 ## INSTALL
 ```bash
-
+composer require rhaym/rssphpbrasil
 ```
 
 ## HOW TO USE
