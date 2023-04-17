@@ -4,7 +4,7 @@ Library for consumption of various RSS for Brazilian news sites
 
 <p align="center">
    <img src="https://img.shields.io/bower/l/MI?style=flat-square">
-   <img src="https://img.shields.io/badge/version-1.0.0-blue">
+   <img src="https://img.shields.io/badge/version-1.0.1-blue">
    <img src="https://img.shields.io/github/issues/rhaymisonbetini/rss-php.svg">
    <img src="https://img.shields.io/github/issues-closed/rhaymisonbetini/rss-php.svg">
    <img src="https://img.shields.io/github/issues-pr/rhaymisonbetini/rss-php.svg">
